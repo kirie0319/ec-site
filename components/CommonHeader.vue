@@ -26,8 +26,7 @@ export default {
   methods: {
     async logout() {
       try {
-        this.$store.commit('removeCart', this.$store.getters.cartProducts)
-          console.log(this.$store.getters.cartProducts)
+        this.$store.commit('removeCart')
         await this.$auth.logout();
         this.$router.push("/");
       } catch (error) {

@@ -39,7 +39,7 @@ export default {
       return this.$store.state.productList
     },
     cast() {
-      return this.$store.getters.cartProducts
+      return this.$store.state.cartList
     },
     cartTotalPrice() {
       return this.$store.getters.cartTotalPrice
@@ -68,7 +68,7 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.getters.cartProducts)
+    console.log(this.cast)
   }
 }
 </script>

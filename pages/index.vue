@@ -65,12 +65,6 @@ export default {
     };
   },
   methods: {
-    async getImage() {
-      const resData = await this.$axios.get("http://127.0.0.1:8000/api/upload");
-      this.file_name = this.url + resData.data.image[11].file_name;
-      console.log(this.file_name);
-      
-    },
     async login() {
       try {
         await this.$auth.loginWith("laravelJWT", {
@@ -98,8 +92,6 @@ export default {
     }
   },
     created() {
-      this.getImage();
-
     }
 };
 </script>

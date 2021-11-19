@@ -50,8 +50,7 @@ export default {
       }
       console.log(item.quantity)
       this.$store.commit('addCart', item);
-      const id = item.id
-      this.$store.dispatch('getImages', id);
+      // this.$store.commit('cartProducts', item)
       this.$router.push({name: 'cart'});
     }
   },
