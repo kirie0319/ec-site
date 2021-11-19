@@ -1,17 +1,27 @@
 <template>
   <div>
     <CommonHeader />
-    <h1>ショッピングカート</h1>
-    <ul>
-      <li v-for="(item, index) in cast" :key="`first-${index}`">
-        <p>{{ item.name }}</p>
-        <p>{{ item.price }}</p>
-        <img :src="`${url}/${item.file_name}`" alt="" >
-        <p>{{ item.quantity }}</p>
-      </li>
-    </ul>
-    <p>{{ cartTotalPrice }}</p>
-    <div @click="orderCart(cast)">注文する</div>
+    <h1 class="cart_head">ショッピングカート</h1>
+    <div class="flex">
+      <div class="cart_content">
+        <div class="cartList_content" v-for="(item, index) in cast" :key="`first-${index}`">
+          <img class="cartList-img" :src="`${url}/${item.file_name}`" alt="" >
+          <div class="cartList-name_content">
+            <p class="cartList-name cart_txt">{{ item.name }}</p>
+            <button class="cartList-delete cart_txt button" @click="remove(item)">削除する</button>
+          </div>
+          <p class="cartList-quantity_txt cart_txt">個数：<span class="cartList-quantity">{{ item.quantity }}</span></p>
+          <p class="cartList-price cart_txt">￥{{ item.price }}(税込)</p>
+        </div>
+      </div>
+      <div class="totalPrice_content">
+        <div class="total_content-inner">
+          <p class="cartList-total">合計：￥{{ cartTotalPrice }}(税込)</p>
+          <button class="
+          cartList-button cartList-order" @click="orderCart(cast)">注文する</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,7 +29,8 @@
 export default {
   data() {
     return {
-      url: "http://127.0.0.1:8000"
+      url: "http://127.0.0.1:8000",
+      flag: this.$route.params.test
     };
   },
   computed: {
@@ -35,7 +46,11 @@ export default {
     }
   },
   methods:  {
+    remove(item) {
+      this.$store.commit('removeItem', item)
+    },
     async orderCart(items) {
+      console.log(this.$store.getters.cartProducts)
       var S="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
       var N=16
       const random_txt = Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('')
@@ -53,7 +68,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('getImages', this.$route.params.id);
+    console.log(this.$store.getters.cartProducts)
   }
 }
 </script>

@@ -1,19 +1,20 @@
 <template>
-  <header>
-    <h1 class="title" @click="$router.push('/top')">Trace</h1>
+  <header class="header">
+    <h1 class="title">Trace</h1>
     <nav class="nav">
       <ul class="menu-group">
         <li class="menu-item">
-          <p v-if="$auth.loggedIn">Name：{{ $auth.user.name }}</p>
+          <p class="header-name" v-if="$auth.loggedIn" @click="$router.push('/top')">Name：{{ $auth.user.name }}</p>
         </li>
         <li class="menu-item">
-          <img src="http://127.0.0.1:8000/storage/images/cart.png" @click="$router.push('/cart')"/>
+          <img
+          v-if="$auth.loggedIn" class="header-img" src="http://127.0.0.1:8000/storage/images/cart.png" @click="$router.push('/cart')"/>
+        </li>
+        <li v-if="$auth.loggedIn" class="menu-item">
+          <img class="header-img" src="http://127.0.0.1:8000/storage/images/user.png" @click="$router.push('/history')"/>
         </li>
         <li class="menu-item">
-          <img src="http://127.0.0.1:8000/storage/images/user.png" @click="$router.push('/history')"/>
-        </li>
-        <li class="menu-item">
-          <img v-if="$auth.loggedIn" src="http://127.0.0.1:8000/storage/images/logout.png" @click="logout" />
+          <img class="header-img" v-if="$auth.loggedIn" src="http://127.0.0.1:8000/storage/images/logout.png" @click="logout" />
         </li>
       </ul>
     </nav>
@@ -25,6 +26,8 @@ export default {
   methods: {
     async logout() {
       try {
+        this.$store.commit('removeCart', this.$store.getters.cartProducts)
+          console.log(this.$store.getters.cartProducts)
         await this.$auth.logout();
         this.$router.push("/");
       } catch (error) {
@@ -34,30 +37,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-header {
-  display: flex;
-  height: 100px;
-  padding: 0 50px;
-  margin-bottom: 30px;
-  align-items: center;
-}
-.title {
-  margin-right: auto;
-}
-.menu-item {
-  list-style: none;
-  display: inline-block;
-  padding: 10px;
-}
-.menu-item a {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-img {
-  width: 50px;
-}
-</style>

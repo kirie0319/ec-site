@@ -45,6 +45,21 @@ export const mutations = {
     })
     console.log('test')
   },
+  removeCart(state, items) {
+    state.cartList = [];
+    state.productList = [];
+    for (let i = 0; i < items.length; i++) {
+      delete items[i];
+    }
+    items.length = [];
+  },
+  removeItem({ state, commit }, product) {
+    console.log()
+    const cartItem = state.cartList.find(cart => cart.id === product.id)
+    if (cartItem) {
+      state.productList.fileter(product => product.match(cartItem.id))
+    }
+  }
 }
 
 export const actions = {
