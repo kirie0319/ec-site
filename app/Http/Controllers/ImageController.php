@@ -59,4 +59,11 @@ class ImageController extends Controller
             'image' => $image
         ], 200);
     }
+    public function index()
+    {
+        $image = Image::all();
+        return response()->json([
+            'image' => $image
+        ], 200);
+    }
 }

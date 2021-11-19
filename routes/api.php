@@ -19,6 +19,7 @@ Route::group([
 
 Route::get('/upload', [ImageController::class, 'input']);
 Route::post('/upload', [ImageController::class, 'upload']);
+Route::get('/product', [ImageController::class, 'index']);
 Route::post('/show', [ImageController::class, 'show']);
 Route::post('/cart', [HistoryController::class, 'cart']);
 Route::post('/history', [HistoryController::class, 'index']);
