@@ -21,4 +21,4 @@ Route::get('/upload', [ImageController::class, 'input']);
 Route::post('/upload', [ImageController::class, 'upload']);
 Route::post('/show', [ImageController::class, 'show']);
 Route::post('/cart', [HistoryController::class, 'cart']);
-Route::get('/history', [HistoryController::class, 'index']);
+Route::post('/history', [HistoryController::class, 'index']);

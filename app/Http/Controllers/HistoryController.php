@@ -11,7 +11,7 @@ class HistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $histories = History::all();
+        $histories = History::where('user_id', $request->user_id)->get();
         foreach($histories as $history) {
             $history->item = Image::where('id', $history->image_id)->first();
         }

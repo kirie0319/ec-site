@@ -10,7 +10,7 @@ class ImageController extends Controller
 {
     public function input()
     {
-        $images = Image::all();
+        $images = Image::paginate(8);
 
         return response()->json([
             'image' => $images
